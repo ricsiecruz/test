@@ -7,8 +7,8 @@ export class DataService {
 
   constructor() { }
 
-  public SaveEmployee(empdata) {  
-   console.log("Full Name : " + empdata.regFullName);  
-   console.log("Email Id : " + empdata.regEmail);  
-}  
+	  public SaveEmployee(empdata) {  
+	   console.log("Full Name : " + empdata.regFullName);  
+	   console.log("Email Id : " + empdata.regEmail);  
+	}  
 }

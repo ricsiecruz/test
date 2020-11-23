@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {  
-    DataService  
-} from '../data.service';  
+
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-page1',
@@ -10,15 +9,17 @@ import {
 })
 export class Page1Component implements OnInit {
 
-  constructor(private dataservice: DataService) {}  
+  public product = { id:'', name:""};
+ 
+  constructor(private router : Router) {
+  }
+ 
+  gotoDynamic() {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    this.router.navigateByUrl('/sample', { state: this.product });
+  }
 
   ngOnInit(): void {
   }
-
-  SaveEmployee(value) {  
-        console.log('page1 start')
-        this.dataservice.SaveEmployee(value);  
-        console.log('page1 end')
-    }  
 
 }
