@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {  
+    DataService  
+} from '../data.service';  
 
 @Component({
   selector: 'app-page1',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Page1Component implements OnInit {
 
-  constructor() { }
+  constructor(private dataservice: DataService) {}  
 
   ngOnInit(): void {
   }
+
+  SaveEmployee(value) {  
+        console.log('page1 start')
+        this.dataservice.SaveEmployee(value);  
+        console.log('page1 end')
+    }  
 
 }
