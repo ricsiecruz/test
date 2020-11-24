@@ -13,6 +13,8 @@ import { NgModule,
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 
+import { ActivatedRoute, Router } from '@angular/router';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -20,7 +22,22 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  public product = { id:'', name:""};
+  
+  constructor(private router : Router,
+    private formBuilder: FormBuilder) {
+  }
+
+   gotoDynamic() {
+    //this.router.navigateByUrl('/dynamic', { state: { id:1 , name:'Angular' } });
+    if (this.myform.valid) {
+      console.log("Form Submitted!");
+      this.router.navigateByUrl('/sample', { state: this.product });
+    } else {
+      console.log('fafd')
+    }
+    // this.router.navigateByUrl('/sample', { state: this.product });
+  }
 
   // ngOnInit(): void {
   // }
@@ -36,11 +53,18 @@ export class HomeComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   language: FormControl;
+  id: FormControl;
 
 
   ngOnInit() {
     this.createFormControls();
     this.createForm();
+    this.myform = this.formBuilder.group({
+      // email: [null, [Validators.required, Validators.email]],
+      // password: [null, Validators.required],
+      // id: [null, [Validators.required, Validators.id]],
+      id: [null, Validators.required]
+    });
   }
 
   createFormControls() {
@@ -55,6 +79,10 @@ export class HomeComponent implements OnInit {
       Validators.minLength(8)
     ]);
     this.language = new FormControl('');
+    this.id = new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ]);
   }
 
   createForm() {
@@ -65,11 +93,18 @@ export class HomeComponent implements OnInit {
       }),
       email: this.email,
       password: this.password,
-      language: this.language
+      language: this.language,
+      id: this.id
     });
   }
 
   onSubmit() {
+    if (this.myform.valid) {
+      console.log("Form Submitted!");
+      this.myform.reset();
+    }
+  }
+  clear() {
     if (this.myform.valid) {
       console.log("Form Submitted!");
       this.myform.reset();
